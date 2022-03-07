@@ -3,12 +3,14 @@ import TableHeader from "./tableHeader";
 import TableBody from "./tableBody";
 const Table = ({ columns, sortColumn, onSort, data }) => {
   return (
+
     <table>
       <TableHeader
         columns={columns}
         sortColumn={sortColumn}
         onSort={onSort}
       />
+      
       <TableBody data={data} columns={columns} valueProperty="_id" />
     </table>
   );

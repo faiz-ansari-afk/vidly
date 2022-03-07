@@ -82,8 +82,6 @@ class Movies extends Component {
             items={this.state.genres}
             selectedItem={this.state.selectedGenre}
             onItemSelect={this.handleGenreSelect}
-            textProperty="name"
-            valueProperty="_id"
           />
         </div>
         <div className="col">

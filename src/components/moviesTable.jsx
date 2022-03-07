@@ -4,6 +4,8 @@ import Like from "./common/like";
 import Table from "./common/table";
 
 class MoviesTable extends Component {
+
+
   columns = [
     {
       path: "title",
