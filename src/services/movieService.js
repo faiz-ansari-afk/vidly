@@ -32,7 +32,6 @@ export function saveMovie(movie) {
   //   movieInDb._id = Date.now().toString();
   //   movies.push(movieInDb);
   // }
-
   // return movieInDb;
 }
 export function deleteMovie(movieId) {
