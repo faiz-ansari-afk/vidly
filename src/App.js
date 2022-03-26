@@ -8,24 +8,37 @@ import Customers from "./components/customers";
 import NotFound from "./components/notFound";
 import Navbar from "./components/navbar";
 import LoginForm from "./components/loginForm";
+import Logout from "./components/logout";
+import auth from "./services/authService";
 import RegisterForm from "./components/registerForm";
+import ProtectedRoute from "./components/common/protectedRoute";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 class App extends Component {
+  state = {};
+  componentDidMount() {
+    const user = auth.getCurrentUser();
+    this.setState({ user });
+  }
   render() {
+    const { user } = this.state;
     return (
       <>
-      <ToastContainer />
-        <Navbar />
+        <ToastContainer />
+        <Navbar user={user} />
         <main className="container">
           <Switch>
             <Route path="/login" component={LoginForm} />
+            <Route path="/logout" component={Logout} />
             <Route path="/register" component={RegisterForm} />
-            <Route path="/movies/:id" component={MovieForm} />
-            <Route path="/movies" component={Movies}></Route>
-            <Route path="/rentals" component={Rentals}></Route>
-            <Route path="/customers" component={Customers}></Route>
-            <Route path="/not-found" component={NotFound}></Route>
+            <ProtectedRoute path="/movies/:id" component={MovieForm} /> {/* {Making current route aware of user} */}
+            <Route
+              path="/movies"
+              render={(props) => <Movies {...props} user={this.state.user} />}
+            />
+            <Route path="/rentals" component={Rentals} />
+            <Route path="/customers" component={Customers} />
+            <Route path="/not-found" component={NotFound} />
             <Redirect from="/" exact to="/movies" />
             <Redirect to="/not-found" />
           </Switch>

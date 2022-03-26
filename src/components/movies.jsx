@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import MoviesTable from "./moviesTable";
 import ListGroup from "./common/listGroup";
 import { paginate } from "../utils/paginate";
-import { getMovies,deleteMovie } from "../services/movieService";
+import { getMovies, deleteMovie } from "../services/movieService";
 import { getGenres } from "../services/genreService";
 import Link from "react-router-dom/Link";
 import SearchBox from "./common/searchBox";
@@ -27,27 +27,18 @@ class Movies extends Component {
     this.setState({ movies, genres });
   }
 
-
-
-
-
-  
   handleDelete = async (movie) => {
     const originalMovies = this.state.movies;
     const movies = originalMovies.filter((m) => m._id !== movie._id);
     this.setState({ movies });
     try {
       await deleteMovie(movie._id);
-    } catch(ex) {
+    } catch (ex) {
       if (ex.response && ex.response.status === 404)
-      toast.error("This movie has already been deleted.")
-      this.setState({movies:originalMovies})
+        toast.error("This movie has already been deleted.");
+      this.setState({ movies: originalMovies });
     }
   };
-
-
-
-
 
   handleLike = (movie) => {
     const movies = [...this.state.movies];
@@ -98,7 +89,9 @@ class Movies extends Component {
     };
   };
   render() {
+    
     const { length: moviesCount } = this.state.movies;
+    const { user } = this.props;
     if (moviesCount === 0) {
       return <p>There are no movies in database.</p>;
     }
@@ -114,16 +107,16 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <Link
+          {user && <Link
             to="/movies/new"
             className="btn btn-primary"
             style={{ marginBottom: 20 }}
           >
             New Movie
-          </Link>
+          </Link>}
 
-          <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <p> Showing {totalCount} movies from the database.</p>
+          <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <MoviesTable
             onLike={this.handleLike}
             onDelete={this.handleDelete}
