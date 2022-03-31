@@ -1,6 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
-import { getGenres } from "../services/genreService";
+// import { getGenres } from "../services/genreService";
+import { getGenres } from "../services/fakeGenreService";
 import { getMovie, saveMovie } from "../services/movieService";
 import Form from "./common/form";
 

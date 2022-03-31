@@ -4,8 +4,9 @@ import { toast } from "react-toastify";
 import MoviesTable from "./moviesTable";
 import ListGroup from "./common/listGroup";
 import { paginate } from "../utils/paginate";
-import { getMovies, deleteMovie } from "../services/movieService";
-import { getGenres } from "../services/genreService";
+import { getMovies, deleteMovie } from "../services/fakeMovieService";
+// import { getGenres } from "../services/genreService";
+import { getGenres } from "../services/fakeGenreService";
 import Link from "react-router-dom/Link";
 import SearchBox from "./common/searchBox";
 import _ from "lodash";
@@ -20,8 +21,8 @@ class Movies extends Component {
     selectedGenre: null,
     sortColumn: { path: "title", order: "asc" },
   };
-  async componentDidMount() {
-    const { data } = await getGenres();
+   componentDidMount() {
+    const  data  =  getGenres();
     const { data: movies } = await getMovies();
     const genres = [{ _id: "", name: "All Genres" }, ...data];
     this.setState({ movies, genres });
